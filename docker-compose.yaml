@@ -1,0 +1,9 @@
+services:
+  frontend:
+    build:
+      context: .
+    ports:
+      - "5174:5174"
+    working_dir: /app
+    # volumes を使わないことでホストの node_modules と干渉しない
+    command: ["npm", "run", "dev"]
