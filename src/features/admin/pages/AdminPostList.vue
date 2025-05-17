@@ -1,10 +1,24 @@
 <script setup lang="ts">
-import { fetchMockPosts } from '../mocks/posts'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { fetchMockPosts } from '../../../mocks/posts'
+import type { Post } from '../../../mocks/posts'
 
-const posts = fetchMockPosts()
+const posts = ref<Post[]>([])
+const router = useRouter()
+
+onMounted(() => {
+  try {
+    const data = fetchMockPosts()
+    console.log('取得したモックデータ:', data)
+    posts.value = data
+  } catch (error) {
+    console.error('データ取得エラー:', error)
+  }
+})
 
 const onEdit = (id: number) => {
-  console.log('編集へ遷移:', id)
+  router.push(`/admin/posts/edit/${id}`)
 }
 const onDelete = (id: number) => {
   console.log('削除実行:', id)
@@ -23,7 +37,7 @@ const onDelete = (id: number) => {
           <th>操作</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="posts.length">
         <tr v-for="post in posts" :key="post.id">
           <td>{{ post.title }}</td>
           <td>{{ post.nickname }}</td>
@@ -32,6 +46,11 @@ const onDelete = (id: number) => {
             <button @click="onEdit(post.id)">編集</button>
             <button @click="onDelete(post.id)">削除</button>
           </td>
+        </tr>
+      </tbody>
+      <tbody v-else>
+        <tr>
+          <td colspan="4" style="text-align: center;">投稿が存在しません</td>
         </tr>
       </tbody>
     </table>

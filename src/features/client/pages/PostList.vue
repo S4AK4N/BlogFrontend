@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import type { Post } from '../mocks/posts'
-import { fetchMockPosts } from '../mocks/posts'
+import type { Post } from '../../../mocks/posts'
+import { fetchMockPosts } from '../../../mocks/posts'
 
 const posts = ref<Post[]>([])
 

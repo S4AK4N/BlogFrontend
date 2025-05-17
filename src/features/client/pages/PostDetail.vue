@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { fetchMockPosts, type Post } from '../mocks/posts'
+import { fetchMockPosts, type Post } from '../../../mocks/posts'
 
 // 
 const route = useRoute()
